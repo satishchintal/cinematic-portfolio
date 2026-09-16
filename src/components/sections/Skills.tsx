@@ -1,0 +1,2 @@
+import {portfolio} from '@/data/portfolio';import {SectionLabel} from './About'
+export default function Skills(){return <section id="skills" className="section-pad content-section"><SectionLabel n="04" t="CAPABILITY MATRIX"/><div className="skills-grid">{Object.entries(portfolio.skills).map(([cat,items])=><div className="skill-group" key={cat}><h3>{cat}</h3><div>{items.map(s=><span key={s}>{s}</span>)}</div></div>)}</div></section>}
