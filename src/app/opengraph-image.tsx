@@ -15,7 +15,7 @@ export default function OpenGraphImage() {
         </div>
         <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 25, color: '#c7c7c7' }}>
           <span>Cloud automation. Reliability. AI-native delivery.</span>
-          <span>satishdevaiops.com</span>
+          <span>AI DEVOPS PORTFOLIO</span>
         </div>
       </div>
     ),

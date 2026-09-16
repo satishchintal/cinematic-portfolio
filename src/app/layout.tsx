@@ -2,20 +2,18 @@ import type {Metadata, Viewport} from 'next';import {Oswald,Syne,Space_Grotesk,J
 
 const oswald=Oswald({subsets:['latin'],variable:'--font-oswald',display:'swap'});const syne=Syne({subsets:['latin'],variable:'--font-syne',display:'swap'});const space=Space_Grotesk({subsets:['latin'],variable:'--font-space',display:'swap'});const mono=JetBrains_Mono({subsets:['latin'],variable:'--font-mono',display:'swap'});
 
-const siteUrl = 'https://satishdevaiops.com';
+const siteUrl = 'https://cinematic-portfolio-rho-seven.vercel.app/';
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: {
-    default: 'Satish Chintal | AI DevOps & Cloud Engineer',
-    template: '%s | Satish Chintal AI DevOps'
+    default: 'Satish Chintal | Professional AI/DevOps Engineering Portfolio',
+    template: '%s | Satish Chintal AI/DevOps'
   },
-  description: 'Satish Chintal is a Sr DevOps Engineer focused on AI DevOps, cloud automation, Kubernetes, Terraform, observability, and production engineering systems.',
+  description: 'Satish Chintal is a Sr DevOps Engineer focused on AI DevOps, cloud automation, platform reliability, observability, and production engineering systems.',
   keywords: [
-    'Satish AI DevOps',
-    'Satish DevOps Engineer',
+    'Satish Chintal',
     'AI DevOps Engineer',
-    'Genpact DevOps Engineer',
     'Sr DevOps Engineer',
     'Cloud Automation',
     'AWS DevOps',
@@ -28,10 +26,9 @@ export const metadata: Metadata = {
     'YouTube AI DevOps',
     'Instagram AI DevOps'
   ],
-  applicationName: 'Satish AI DevOps',
-  authors: [{ name: 'Satish' }],
-  creator: 'Satish',
-  publisher: 'Satish AI DevOps',
+  applicationName: 'Satish Chintal AI/DevOps Portfolio',
+  authors: [{ name: 'Satish Chintal' }],
+  creator: 'Satish Chintal',
   robots: {
     index: true,
     follow: true,
@@ -48,19 +45,18 @@ export const metadata: Metadata = {
     languages: { 'en-IN': '/' }
   },
   openGraph: {
-    title: 'Satish Chintal | AI DevOps & Cloud Engineer',
-    description: 'Cloud automation, platform reliability, and practical AI DevOps engineering. Follow the journey on YouTube and Instagram.',
-    url: '/',
-    siteName: 'Satish Chintal AI DevOps',
+    title: 'Satish Chintal | Professional AI/DevOps Engineering Portfolio',
+    description: 'Cloud automation, platform reliability, and practical AI DevOps engineering systems.',
+    url: siteUrl,
+    siteName: 'Satish Chintal AI/DevOps Portfolio',
     locale: 'en_IN',
     type: 'website',
     images: [{ url: '/opengraph-image', width: 1200, height: 630, alt: 'Satish Chintal - AI DevOps and cloud engineering' }]
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Satish Chintal | AI DevOps & Cloud Engineer',
-    description: 'Cloud automation, platform reliability, and practical AI DevOps engineering.',
-    creator: '@satishdevaiops',
+    title: 'Satish Chintal | Professional AI/DevOps Engineering Portfolio',
+    description: 'Cloud automation, platform reliability, and practical AI DevOps engineering systems.',
     images: ['/opengraph-image']
   },
   icons: {
