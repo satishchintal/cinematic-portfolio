@@ -6,6 +6,7 @@ export default function CinematicVideo(){
   const pointerRef=useRef({x:.5,y:.5})
   const targetRef=useRef(0)
   const currentRef=useRef(0)
+  const readyRef=useRef(false)
   const rafRef=useRef<number | null>(null)
 
   useEffect(()=>{
@@ -24,12 +25,18 @@ export default function CinematicVideo(){
       targetRef.current=(scrollProgress+pointerRef.current.x)/2
     }
 
-    const playVideo=async()=>{
+    const handleMetadata=()=>{
+      if(!Number.isFinite(video.duration)||video.duration<=0) return
+    }
+
+    const initializeVideo=()=>{
+      if(!Number.isFinite(video.duration)||video.duration<=0) return
+      readyRef.current=true
+      video.pause()
       try{
-        video.playbackRate=.01
-        await video.play()
+        video.currentTime=0
       }catch{
-        // some browsers block autoplay until interaction; the background should still render and remain muted
+        readyRef.current=false
       }
     }
 
@@ -37,20 +44,31 @@ export default function CinematicVideo(){
       const {x,y}=pointerRef.current
       const dx=(x-.5),dy=(y-.5)
       currentRef.current+=(targetRef.current-currentRef.current)*.10
-      if(video.duration) video.currentTime=currentRef.current*video.duration
+      if(readyRef.current&&Number.isFinite(video.duration)&&video.duration>0){
+        const desiredTime=currentRef.current*video.duration
+        if(Math.abs(video.currentTime-desiredTime)>.001){
+          try{
+            video.currentTime=desiredTime
+          }catch{
+            readyRef.current=false
+          }
+        }
+      }
       video.style.transform=`scale(1.06) translate3d(${dx*-15}px,${dy*-15}px,0) rotateX(${dy*-2}deg) rotateY(${dx*2}deg)`
       rafRef.current=requestAnimationFrame(tick)
     }
 
-    video.addEventListener('loadeddata',playVideo)
-    if(video.readyState>=2){ void playVideo() }
+    video.addEventListener('loadedmetadata',handleMetadata)
+    video.addEventListener('canplay',initializeVideo)
+    if(video.readyState>=3) initializeVideo()
     window.addEventListener('pointermove',pointer,{passive:true})
     window.addEventListener('scroll',scroll,{passive:true})
     scroll()
     rafRef.current=requestAnimationFrame(tick)
 
     return()=>{
-      video.removeEventListener('loadeddata',playVideo)
+      video.removeEventListener('loadedmetadata',handleMetadata)
+      video.removeEventListener('canplay',initializeVideo)
       window.removeEventListener('pointermove',pointer)
       window.removeEventListener('scroll',scroll)
       if(rafRef.current) cancelAnimationFrame(rafRef.current)
@@ -58,7 +76,7 @@ export default function CinematicVideo(){
   },[])
 
   return <div className="cine-stage" aria-hidden="true">
-    <video ref={videoRef} src="/video/portfolio-background.mp4" playsInline muted autoPlay loop preload="auto" className="cine-video" />
+    <video ref={videoRef} src="/video/portfolio-background.mp4" playsInline muted preload="auto" className="cine-video" />
     <div className="cine-vignette"/><div className="cine-glow"/><div className="cine-grain"/><div className="cine-scan"/>
     <div className="cine-progress"><span/></div>
   </div>
